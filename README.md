@@ -1,5 +1,5 @@
-# D.A.B.
-Detectação Automática de Bêbados
+# MinerCompanion
+Sistema de Alerta para Mineradoras
 
 Copyright (C) 2015  {Jackson Lima(jackson.lsl87@gmail.com), Jean Figueiredo(jean.af@gmail.com), Victor Valente(victorvalentee@gmail.com)}
 
