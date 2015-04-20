@@ -1,4 +1,4 @@
-package devbox.com.br.dab;
+package devbox.com.br.minercompanion;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

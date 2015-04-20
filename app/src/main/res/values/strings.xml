@@ -1,6 +1,8 @@
 <resources>
-    <string name="app_name">D.A.B.</string>
+    <string name="app_name">Miner Companion.</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_profile">ProfileActivity</string>
 </resources>
