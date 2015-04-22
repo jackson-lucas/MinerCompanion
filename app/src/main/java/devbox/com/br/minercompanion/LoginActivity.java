@@ -1,11 +1,13 @@
 package devbox.com.br.minercompanion;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
-
-import devbox.com.br.minercompanion.R;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 public class LoginActivity extends ActionBarActivity {
 
@@ -13,15 +15,35 @@ public class LoginActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        Button login = (Button) findViewById(R.id.button);
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EditText editText = (EditText) findViewById(R.id.editText);
+
+                if(editText.getText().length() > 0) {
+                    Intent intent = new Intent(LoginActivity.this, ProfileActivity.class);
+                    intent.putExtra("MATRICULA", editText.getText().toString());
+                    startActivity(intent);
+                    finish();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Matrícula não preenchida!", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
     }
 
 
+    /*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_login, menu);
         return true;
     }
+    */
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
