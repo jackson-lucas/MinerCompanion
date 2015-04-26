@@ -3,6 +3,7 @@ package devbox.com.br.minercompanion;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v7.app.ActionBarActivity;
@@ -10,18 +11,38 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
-import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
-import devbox.com.br.minercompanion.R;
+import java.util.ArrayList;
+
+import devbox.com.br.minercompanion.Utilities.ProfileListAdapter;
 
 public class ProfileActivity extends ActionBarActivity {
+
+    private ArrayList<String> strings = new ArrayList<String>();
+    private String matricula;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+        Intent intent = getIntent();
+
+        if(intent != null) {
+            matricula = intent.getStringExtra("MATRICULA");
+
+            TextView textView = (TextView) findViewById(R.id.textView);
+
+            textView.setText("Matrícula: " + matricula);
+        }
+
+        strings.add("Conectando-se ao servidor...");
+
+        ListView listView = (ListView) findViewById(R.id.listView);
+        ProfileListAdapter profileListAdapter = new ProfileListAdapter(this, strings);
+        listView.setAdapter(profileListAdapter);
     }
 
     @Override
@@ -74,9 +95,6 @@ public class ProfileActivity extends ActionBarActivity {
     public boolean isConnected(){
         ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Activity.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-        if (networkInfo != null && networkInfo.isConnected())
-            return true;
-        else
-            return false;
+        return networkInfo != null && networkInfo.isConnected();
     }
 }
