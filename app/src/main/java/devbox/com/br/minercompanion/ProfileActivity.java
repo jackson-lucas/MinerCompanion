@@ -1,8 +1,6 @@
 package devbox.com.br.minercompanion;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -10,7 +8,6 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -18,6 +15,7 @@ import java.util.ArrayList;
 
 import devbox.com.br.minercompanion.Utilities.ProfileListAdapter;
 
+// Need develop and test connection with server
 public class ProfileActivity extends ActionBarActivity {
 
     private ArrayList<String> strings = new ArrayList<String>();
@@ -39,6 +37,7 @@ public class ProfileActivity extends ActionBarActivity {
         }
 
         strings.add("Conectando-se ao servidor...");
+
 
         ListView listView = (ListView) findViewById(R.id.listView);
         ProfileListAdapter profileListAdapter = new ProfileListAdapter(this, strings);
@@ -67,6 +66,7 @@ public class ProfileActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /* Alert Depreceated
     public void createAlertDialog() {
         final EditText editText = new EditText(this);
         editText.setId(R.id.editText);
@@ -91,6 +91,7 @@ public class ProfileActivity extends ActionBarActivity {
                 .create()
                 .show();
     }
+    */
 
     public boolean isConnected(){
         ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Activity.CONNECTIVITY_SERVICE);
