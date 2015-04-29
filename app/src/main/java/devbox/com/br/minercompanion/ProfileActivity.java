@@ -27,6 +27,8 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.BasicHttpParams;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -57,6 +59,7 @@ public class ProfileActivity extends ActionBarActivity implements SensorEventLis
 
     SensorCounter sensorCounter;
     ProfileListAdapter profileListAdapter;
+    Boolean isLoggingOut;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,9 +116,18 @@ public class ProfileActivity extends ActionBarActivity implements SensorEventLis
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_logout) {
-            Intent intent = new Intent(ProfileActivity.this, LoginActivity.class);
-            startActivity(intent);
-            finish();
+
+            JSONObject jsonObject = new JSONObject();
+            try {
+                isLoggingOut = true;
+                jsonObject.put("idDispositivo", matricula);
+                jsonObject.put("logout", true);
+            } catch (JSONException e) {
+                e.printStackTrace();
+                isLoggingOut = false;
+            }
+
+            new HttpAsyncTask().execute(url, jsonObject.toString());
         }
 
         return super.onOptionsItemSelected(item);
@@ -221,6 +233,12 @@ public class ProfileActivity extends ActionBarActivity implements SensorEventLis
 
             if(result.equals("OK")) {
                 profileListAdapter.addItem("Dados enviados com sucesso!");
+
+                if(isLoggingOut) {
+                    Intent intent = new Intent(ProfileActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
             } else {
                 profileListAdapter.addItem("Erro ao tentar conectar-se com o servidor!");
             }
