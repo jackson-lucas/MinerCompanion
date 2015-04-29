@@ -8,6 +8,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.CountDownTimer;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -16,8 +17,24 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.params.BasicHttpParams;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.List;
 
 import devbox.com.br.minercompanion.Utilities.ProfileListAdapter;
 import devbox.com.br.minercompanion.Utilities.Sensors;
@@ -25,21 +42,29 @@ import devbox.com.br.minercompanion.Utilities.Sensors;
 // Need develop and test connection with server
 public class ProfileActivity extends ActionBarActivity implements SensorEventListener {
 
+    String url = "http://google.com/";
+
     private ArrayList<String> strings = new ArrayList<String>();
     private String matricula;
 
     private SensorManager sensorManager = null;
-    private Sensors sensors = new Sensors();
+    private Sensors sensors;
 
     private final long startTime = 45 * 1000;
     private final long interval = 1 * 1000;
     private boolean timerHasStarted = false;
     private StringBuilder msg = new StringBuilder(2048);
 
+    SensorCounter sensorCounter;
+    ProfileListAdapter profileListAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        sensorCounter = new SensorCounter(30000, 30000);
+        sensorCounter.start();
 
         Intent intent = getIntent();
 
@@ -49,16 +74,18 @@ public class ProfileActivity extends ActionBarActivity implements SensorEventLis
             TextView textView = (TextView) findViewById(R.id.textView);
 
             textView.setText("Matrícula: " + matricula);
-        }
 
-        strings.add("Conectando-se ao servidor...");
+            sensors = new Sensors(matricula);
+        }
 
         /* Get a SensorManager instance */
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 
         ListView listView = (ListView) findViewById(R.id.listView);
-        ProfileListAdapter profileListAdapter = new ProfileListAdapter(this, strings);
+        profileListAdapter = new ProfileListAdapter(this, strings);
         listView.setAdapter(profileListAdapter);
+
+        profileListAdapter.addItem("Conectado ao servidor!");
     }
 
     @Override
@@ -119,12 +146,6 @@ public class ProfileActivity extends ActionBarActivity implements SensorEventLis
     }
     */
 
-    public boolean isConnected(){
-        ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Activity.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-        return networkInfo != null && networkInfo.isConnected();
-    }
-
     @Override
     public void onSensorChanged(SensorEvent event) {
 
@@ -174,6 +195,8 @@ public class ProfileActivity extends ActionBarActivity implements SensorEventLis
         public void onFinish() {
             Log.d("ProfileActivity", "Timer Completed.");
             //timeText.setText("Timer Completed.");
+            new HttpAsyncTask().execute(url, sensors.getAsJson().toString());
+            sensorCounter.start();
         }
 
         @Override
@@ -181,5 +204,86 @@ public class ProfileActivity extends ActionBarActivity implements SensorEventLis
             //timeText.setText((millisUntilFinished/1000)+"");
             Log.d("ProfileActivity", "Timer  : " + (millisUntilFinished / 1000));
         }
+    }
+
+    private class HttpAsyncTask extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... data) {
+
+            return POST(data[0], data[1]);
+        }
+        // onPostExecute displays the results of the AsyncTask.
+        @Override
+        protected void onPostExecute(String result) {
+            Log.i("HTTP REQUEST RESULTADO", result);
+
+            if(result.equals("OK")) {
+                profileListAdapter.addItem("Dados enviados com sucesso!");
+            } else {
+                profileListAdapter.addItem("Erro ao tentar conectar-se com o servidor!");
+            }
+        }
+    }
+
+    private static String convertInputStreamToString(InputStream inputStream) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader( new InputStreamReader(inputStream));
+        String line = "";
+        String result = "";
+        Log.i("HTTP REQUEST RESULTADO", "");
+        while((line = bufferedReader.readLine()) != null) {
+            result = line;
+            Log.i("", result);
+        }
+        Log.i("HTTP REQUEST RESULT FIM", "");
+
+        inputStream.close();
+        return result;
+    }
+
+    public static String POST(String url, String data){
+        InputStream inputStream = null;
+        String result = "";
+
+        try {
+
+            // 1. create HttpClient
+            HttpClient httpclient = new DefaultHttpClient(new BasicHttpParams());
+
+            // 2. make POST request to the given URL
+            HttpPost httpPost = new HttpPost(url);
+
+
+            try {
+                List<NameValuePair> params = new ArrayList<NameValuePair>();
+                //String usuarios = jsonParser.getAllUsuariosAsJson().toString();
+
+                //Log.i("USUARIOS", usuarios);
+
+                //params.add(new BasicNameValuePair("usuarios", usuarios));
+                params.add(new BasicNameValuePair("data", data));
+
+                httpPost.setEntity(new UrlEncodedFormEntity(params));
+
+                HttpResponse response = httpclient.execute(httpPost);
+
+                inputStream = response.getEntity().getContent();
+
+            } catch (UnsupportedEncodingException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
+            // 10. convert inputstream to string
+            if(inputStream != null)
+                result = convertInputStreamToString(inputStream);
+            else
+                result = "Resultado Nulo";
+
+        } catch (Exception e) {
+            Log.i("InputStream", e.getLocalizedMessage());
+        }
+
+        // 11. return result
+        return result;
     }
 }
