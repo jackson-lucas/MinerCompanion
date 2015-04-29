@@ -42,7 +42,7 @@ import devbox.com.br.minercompanion.Utilities.Sensors;
 // Need develop and test connection with server
 public class ProfileActivity extends ActionBarActivity implements SensorEventListener {
 
-    String url = "http://google.com/";
+    String url = "http://32f35102.ngrok.com/miner_companion/admin_server/";
 
     private ArrayList<String> strings = new ArrayList<String>();
     private String matricula;
@@ -63,7 +63,7 @@ public class ProfileActivity extends ActionBarActivity implements SensorEventLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        sensorCounter = new SensorCounter(30000, 30000);
+        sensorCounter = new SensorCounter(3000, 3000);
         sensorCounter.start();
 
         Intent intent = getIntent();
@@ -112,8 +112,10 @@ public class ProfileActivity extends ActionBarActivity implements SensorEventLis
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.action_logout) {
+            Intent intent = new Intent(ProfileActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
         }
 
         return super.onOptionsItemSelected(item);
@@ -229,12 +231,12 @@ public class ProfileActivity extends ActionBarActivity implements SensorEventLis
         BufferedReader bufferedReader = new BufferedReader( new InputStreamReader(inputStream));
         String line = "";
         String result = "";
-        Log.i("HTTP REQUEST RESULTADO", "");
+        Log.d("HTTP REQUEST RESULTADO", "");
         while((line = bufferedReader.readLine()) != null) {
             result = line;
-            Log.i("", result);
+            Log.d("", result);
         }
-        Log.i("HTTP REQUEST RESULT FIM", "");
+        Log.d("HTTP REQUEST RESULT FIM", "");
 
         inputStream.close();
         return result;
@@ -258,6 +260,7 @@ public class ProfileActivity extends ActionBarActivity implements SensorEventLis
                 //String usuarios = jsonParser.getAllUsuariosAsJson().toString();
 
                 //Log.i("USUARIOS", usuarios);
+                Log.d("Dados sendo enviado: ", data);
 
                 //params.add(new BasicNameValuePair("usuarios", usuarios));
                 params.add(new BasicNameValuePair("data", data));
