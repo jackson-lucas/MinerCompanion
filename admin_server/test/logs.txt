@@ -1,0 +1,15 @@
+[
+	{
+		"id_dispositivo" : "AAAA1234",
+		"valorLuminosidade" : 10,
+		"valorAcelerometro": [1,2,3],
+		"valorLocalizacao" : 20
+	},
+
+	{
+		"id_dispositivo" : "BBBB5678",
+		"valorLuminosidade" : 44,
+		"valorAcelerometro": [100,15,22],
+		"valorLocalizacao" : 1
+	}
+]

@@ -1,0 +1,193 @@
+{
+    "valorAcelerometro": [
+        0.095768064260483,
+        -0.19153612852097,
+        9.6438446044922
+    ],
+    "valorLuminosidade": 124,
+    "idDispositivo": "777"
+}{
+    "valorAcelerometro": [
+        0.095768064260483,
+        -0.16280572116375,
+        9.6151142120361
+    ],
+    "valorLuminosidade": 121,
+    "idDispositivo": "777"
+}{
+    "valorAcelerometro": [
+        0.086191259324551,
+        -0.14365209639072,
+        9.5959606170654
+    ],
+    "valorLuminosidade": 121,
+    "idDispositivo": "777"
+}{
+    "valorAcelerometro": [
+        0.095768064260483,
+        -0.16280572116375,
+        9.6151142120361
+    ],
+    "valorLuminosidade": 121,
+    "idDispositivo": "777"
+}{
+    "valorAcelerometro": [
+        0.095768064260483,
+        -0.1723825186491,
+        9.6342678070068
+    ],
+    "valorLuminosidade": 121,
+    "idDispositivo": "777"
+}{
+    "valorAcelerometro": [
+        0.105344876647,
+        -0.21068975329399,
+        9.6342678070068
+    ],
+    "valorLuminosidade": 121,
+    "idDispositivo": "777"
+}{
+    "valorAcelerometro": [
+        0.095768064260483,
+        -0.1723825186491,
+        9.6151142120361
+    ],
+    "valorLuminosidade": 121,
+    "idDispositivo": "777"
+}{
+    "valorAcelerometro": [
+        0.086191259324551,
+        -0.18195933103561,
+        9.6055374145508
+    ],
+    "valorLuminosidade": 121,
+    "idDispositivo": "777"
+}{
+    "valorAcelerometro": [
+        0.105344876647,
+        -0.16280572116375,
+        9.6151142120361
+    ],
+    "valorLuminosidade": 121,
+    "idDispositivo": "777"
+}{
+    "valorAcelerometro": [
+        0.076614454388618,
+        -0.086191259324551,
+        9.5863838195801
+    ],
+    "valorLuminosidade": 121,
+    "idDispositivo": "777"
+}{
+    "valorAcelerometro": [
+        0.105344876647,
+        -0.20111294090748,
+        9.6342678070068
+    ],
+    "valorLuminosidade": 121,
+    "idDispositivo": "777"
+}{
+    "valorAcelerometro": [
+        0.105344876647,
+        -0.1723825186491,
+        9.6151142120361
+    ],
+    "valorLuminosidade": 121,
+    "idDispositivo": "777"
+}{
+    "valorAcelerometro": [
+        0.11492168158293,
+        -0.22026655077934,
+        9.6629981994629
+    ],
+    "valorLuminosidade": 121,
+    "idDispositivo": "777"
+}{
+    "valorAcelerometro": [
+        0.067037649452686,
+        -0.105344876647,
+        9.5672302246094
+    ],
+    "valorLuminosidade": 121,
+    "idDispositivo": "777"
+}{
+    "valorAcelerometro": [
+        0.095768064260483,
+        -0.1723825186491,
+        9.6151142120361
+    ],
+    "valorLuminosidade": 121,
+    "idDispositivo": "777"
+}{
+    "valorAcelerometro": [
+        0.086191259324551,
+        -0.14365209639072,
+        9.6055374145508
+    ],
+    "valorLuminosidade": 121,
+    "idDispositivo": "777"
+}{
+    "valorAcelerometro": [
+        0.11492168158293,
+        -0.20111294090748,
+        9.6534214019775
+    ],
+    "valorLuminosidade": 121,
+    "idDispositivo": "777"
+}{
+    "valorAcelerometro": [
+        0.13407529890537,
+        -0.22026655077934,
+        9.720458984375
+    ],
+    "valorLuminosidade": 121,
+    "idDispositivo": "777"
+}{
+    "valorAcelerometro": [
+        0.105344876647,
+        -0.16280572116375,
+        9.6246910095215
+    ],
+    "valorLuminosidade": 121,
+    "idDispositivo": "777"
+}{
+    "valorAcelerometro": [
+        0.12449848651886,
+        -0.22984336316586,
+        9.6534214019775
+    ],
+    "valorLuminosidade": 121,
+    "idDispositivo": "777"
+}{
+    "valorAcelerometro": [
+        0.105344876647,
+        -0.16280572116375,
+        9.6438446044922
+    ],
+    "valorLuminosidade": 121,
+    "idDispositivo": "777"
+}{
+    "valorAcelerometro": [
+        0.11492168158293,
+        -0.22984336316586,
+        9.6438446044922
+    ],
+    "valorLuminosidade": 121,
+    "idDispositivo": "777"
+}{
+    "valorAcelerometro": [
+        0.095768064260483,
+        -0.12449848651886,
+        9.6342678070068
+    ],
+    "valorLuminosidade": 121,
+    "idDispositivo": "777"
+}{
+    "valorAcelerometro": [
+        0.086191259324551,
+        -0.14365209639072,
+        9.6151142120361
+    ],
+    "valorLuminosidade": 121,
+    "idDispositivo": "777"
+}
