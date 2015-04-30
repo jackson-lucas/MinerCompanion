@@ -62,7 +62,7 @@ public class ProfileActivity extends ActionBarActivity implements SensorEventLis
     private ArrayList<String> strings = new ArrayList<String>();
     private String matricula;
 
-    private SensorManager sensorManager = null;
+    private SensorManager sensorManager;
     private Sensors sensors;
 
     private final long startTime = 45 * 1000;
@@ -108,8 +108,8 @@ public class ProfileActivity extends ActionBarActivity implements SensorEventLis
     protected void onResume() {
         super.onResume();
         sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), sensorManager.SENSOR_DELAY_GAME);
-        sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION), sensorManager.SENSOR_DELAY_GAME);
-        sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE), sensorManager.SENSOR_DELAY_NORMAL);
+        //sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION), sensorManager.SENSOR_DELAY_GAME);
+        //sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE), sensorManager.SENSOR_DELAY_NORMAL);
         sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT), sensorManager.SENSOR_DELAY_NORMAL);
     }
 
@@ -237,7 +237,7 @@ public class ProfileActivity extends ActionBarActivity implements SensorEventLis
         @Override
         protected String doInBackground(String... data) {
 
-            return POST(data[0], data[1]);
+            return POST(data[0], data[1], isLoggingOut);
         }
         // onPostExecute displays the results of the AsyncTask.
         @Override
@@ -273,7 +273,7 @@ public class ProfileActivity extends ActionBarActivity implements SensorEventLis
         return result;
     }
 
-    public static String POST(String url, String data){
+    public static String POST(String url, String data, boolean isLoggingOut){
         InputStream inputStream = null;
         String result = "";
 
@@ -294,7 +294,13 @@ public class ProfileActivity extends ActionBarActivity implements SensorEventLis
                 Log.d("Dados sendo enviado: ", data);
 
                 //params.add(new BasicNameValuePair("usuarios", usuarios));
-                params.add(new BasicNameValuePair("data", data));
+                if(isLoggingOut) {
+                    params.add(new BasicNameValuePair("logout", data));
+
+                } else {
+                    params.add(new BasicNameValuePair("log", data));
+                }
+
 
                 httpPost.setEntity(new UrlEncodedFormEntity(params));
 
