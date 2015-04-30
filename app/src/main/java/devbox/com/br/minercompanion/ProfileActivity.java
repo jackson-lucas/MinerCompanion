@@ -25,6 +25,8 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.CountDownTimer;
 import android.support.v7.app.ActionBarActivity;
@@ -81,11 +83,23 @@ public class ProfileActivity extends ActionBarActivity implements SensorEventLis
     ProfileListAdapter profileListAdapter;
     boolean isLoggingOut;
     HttpAsyncTask httpAsyncTask;
+    String routerName = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        if (networkInfo.isConnected()) {
+            final WifiManager wifiManager = (WifiManager) getSystemService(WIFI_SERVICE);
+            final WifiInfo connectionInfo = wifiManager.getConnectionInfo();
+            if (connectionInfo != null && !(connectionInfo.getSSID().equals(""))) {
+                //if (connectionInfo != null && !StringUtil.isBlank(connectionInfo.getSSID())) {
+                routerName = connectionInfo.getSSID();
+            }
+        }
 
         sensorCounter = new SensorCounter(3000, 3000);
         sensorCounter.start();
@@ -99,7 +113,7 @@ public class ProfileActivity extends ActionBarActivity implements SensorEventLis
 
             textView.setText("Matrícula: " + matricula);
 
-            sensors = new Sensors(matricula);
+            sensors = new Sensors(matricula, routerName);
         }
 
         /* Get a SensorManager instance */
