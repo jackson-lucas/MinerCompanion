@@ -1,3 +1,20 @@
+/**
+ *MinerCompanion - Sistema de Alerta para Mineradoras
+ *Copyright (C) <2015>  <Jackson Lima, Jean Figueiredo, Victor Valente>
+ *
+ *This program is free software: you can redistribute it and/or modify
+ *it under the terms of the GNU General Public License as published by
+ *the Free Software Foundation, either version 3 of the License, or
+ *(at your option) any later version.
+ *
+ *This program is distributed in the hope that it will be useful,
+ *but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *GNU General Public License for more details.
+ *
+ *You should have received a copy of the GNU General Public License
+ *along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package devbox.com.br.minercompanion;
 
 import android.app.Activity;
@@ -35,6 +52,7 @@ import java.util.List;
 public class LoginActivity extends ActionBarActivity {
 
     String url = "http://32f35102.ngrok.com/miner_companion/admin_server/requests.php";
+
     EditText editText;
     ProgressDialog progressDialog;
 
@@ -53,7 +71,8 @@ public class LoginActivity extends ActionBarActivity {
             public void onClick(View view) {
                 EditText editText = (EditText) findViewById(R.id.editText);
 
-                if(editText.getText().length() > 0 && isConnected()) {
+                //if(editText.getText().length() > 0 && isConnected()) {
+                if(editText.getText().length() > 0) {
                     progressDialog.show();
                     new HttpAsyncTask().execute(url, editText.getText().toString());
                 } else {
@@ -158,7 +177,7 @@ public class LoginActivity extends ActionBarActivity {
 
 
                 //params.add(new BasicNameValuePair("usuarios", usuarios));
-                params.add(new BasicNameValuePair("data", data));
+                params.add(new BasicNameValuePair("login", data));
 
                 httpPost.setEntity(new UrlEncodedFormEntity(params));
 
