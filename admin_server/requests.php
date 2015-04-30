@@ -23,9 +23,9 @@ if ((isset($_POST)) && !empty($_POST)) {
 
 	if(isset($_POST["login"])) {
 		//Cria estrutura de armazenamento "log_buffer" para logs que virão daquele dispositivo.
-		$id = $_POST["idDispositivo"];
+		//$id = $_POST["idDispositivo"];
 
-		$log_buffer = StorageController::criar_log_buffer($log_container, $id);
+		//$log_buffer = StorageController::criar_log_buffer($log_container, $id);
 		echo "OK";
 	}
 
@@ -33,7 +33,7 @@ if ((isset($_POST)) && !empty($_POST)) {
 		$log = $_POST["log"];
 
 		//Armazena logs
-		$log_container[$log->id] = var_dump($log);
+		//$log_container[$log->id] = var_dump($log);
 		echo "OK";
 		
 		//Faz tratamento dos possíveis alertas
@@ -43,9 +43,6 @@ if ((isset($_POST)) && !empty($_POST)) {
 		//Para de verificar logs para aquele dispositivo
 	}
 
-	else if(isset($_POST["data"])) {
-		echo "OK";
-	}
 
 	else //Mensagem misteriosa
 		echo "Dados recebidos são inválidos\n";

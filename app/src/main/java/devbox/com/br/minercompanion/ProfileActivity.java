@@ -72,7 +72,7 @@ public class ProfileActivity extends ActionBarActivity implements SensorEventLis
 
     SensorCounter sensorCounter;
     ProfileListAdapter profileListAdapter;
-    Boolean isLoggingOut;
+    boolean isLoggingOut;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
