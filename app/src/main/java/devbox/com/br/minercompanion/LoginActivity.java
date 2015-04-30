@@ -51,7 +51,7 @@ import java.util.List;
 
 public class LoginActivity extends ActionBarActivity {
 
-    String url = "http://32f35102.ngrok.com/miner_companion/admin_server/";
+    String url = "http://192.168.49.254/miner_companion/admin_server/requests.php";
     EditText editText;
     ProgressDialog progressDialog;
 
@@ -70,7 +70,8 @@ public class LoginActivity extends ActionBarActivity {
             public void onClick(View view) {
                 EditText editText = (EditText) findViewById(R.id.editText);
 
-                if(editText.getText().length() > 0 && isConnected()) {
+                //if(editText.getText().length() > 0 && isConnected()) {
+                if(editText.getText().length() > 0) {
                     progressDialog.show();
                     new HttpAsyncTask().execute(url, editText.getText().toString());
                 } else {

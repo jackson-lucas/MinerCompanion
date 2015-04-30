@@ -61,7 +61,7 @@ import devbox.com.br.minercompanion.Utilities.Sensors;
 // Need develop and test connection with server
 public class ProfileActivity extends ActionBarActivity implements SensorEventListener {
 
-    String url = "http://32f35102.ngrok.com/miner_companion/admin_server/";
+    String url = "http://192.168.49.254/miner_companion/admin_server/hash.php";
 
     private ArrayList<String> strings = new ArrayList<String>();
     private String matricula;
