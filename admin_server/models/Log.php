@@ -4,14 +4,12 @@
 * Esta classe define o modelo de Log enviado pelos devices conectados
 */
 
-class LogModel {
+class Log {
 	
 	function __construct()
 	{
 		
 	}
-
-	
 }
 
 ?>
