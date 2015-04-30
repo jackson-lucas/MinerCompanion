@@ -61,12 +61,13 @@ import devbox.com.br.minercompanion.Utilities.Sensors;
 // Need develop and test connection with server
 public class ProfileActivity extends ActionBarActivity implements SensorEventListener {
 
-    String url = "http://192.168.49.254/miner_companion/admin_server/hash.php";
+    //String url = "http://192.168.49.254/miner_companion/admin_server/hash.php";
+    String url = "http://32f35102.ngrok.com/miner_companion/admin_server/requests.php";
 
     private ArrayList<String> strings = new ArrayList<String>();
     private String matricula;
 
-    private SensorManager sensorManager = null;
+    private SensorManager sensorManager;
     private Sensors sensors;
 
     private final long startTime = 45 * 1000;
@@ -76,7 +77,7 @@ public class ProfileActivity extends ActionBarActivity implements SensorEventLis
 
     SensorCounter sensorCounter;
     ProfileListAdapter profileListAdapter;
-    Boolean isLoggingOut;
+    boolean isLoggingOut;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,8 +113,8 @@ public class ProfileActivity extends ActionBarActivity implements SensorEventLis
     protected void onResume() {
         super.onResume();
         sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), sensorManager.SENSOR_DELAY_GAME);
-        sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION), sensorManager.SENSOR_DELAY_GAME);
-        sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE), sensorManager.SENSOR_DELAY_NORMAL);
+        //sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION), sensorManager.SENSOR_DELAY_GAME);
+        //sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE), sensorManager.SENSOR_DELAY_NORMAL);
         sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT), sensorManager.SENSOR_DELAY_NORMAL);
     }
 
