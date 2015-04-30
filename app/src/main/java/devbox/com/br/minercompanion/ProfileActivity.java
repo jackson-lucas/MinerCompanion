@@ -64,6 +64,8 @@ public class ProfileActivity extends ActionBarActivity implements SensorEventLis
     //String url = "http://192.168.49.254/miner_companion/admin_server/hash.php";
     String url = "http://32f35102.ngrok.com/miner_companion/admin_server/requests.php";
 
+    final static String TAG = "ProfileActivity";
+
     private ArrayList<String> strings = new ArrayList<String>();
     private String matricula;
 
@@ -78,6 +80,7 @@ public class ProfileActivity extends ActionBarActivity implements SensorEventLis
     SensorCounter sensorCounter;
     ProfileListAdapter profileListAdapter;
     boolean isLoggingOut;
+    HttpAsyncTask httpAsyncTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -226,9 +229,16 @@ public class ProfileActivity extends ActionBarActivity implements SensorEventLis
         @Override
         public void onFinish() {
             Log.d("ProfileActivity", "Timer Completed.");
-            //timeText.setText("Timer Completed.");
-            new HttpAsyncTask().execute(url, sensors.getAsJson().toString());
-            sensorCounter.start();
+
+            if(!isLoggingOut) {
+                httpAsyncTask = new HttpAsyncTask();
+                httpAsyncTask.execute(url, sensors.getAsJson().toString());
+                sensorCounter.start();
+            } else {
+                if(httpAsyncTask != null) {
+                    httpAsyncTask.cancel(true);
+                }
+            }
         }
 
         @Override
@@ -249,18 +259,26 @@ public class ProfileActivity extends ActionBarActivity implements SensorEventLis
         protected void onPostExecute(String result) {
             Log.i("HTTP REQUEST RESULTADO", result);
 
-            if(result.equals("OK")) {
+            if(result.contains("OK")) {
                 profileListAdapter.addItem("Dados enviados com sucesso!");
-
-                if(isLoggingOut) {
-                    Intent intent = new Intent(ProfileActivity.this, LoginActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
             } else {
                 profileListAdapter.addItem("Erro ao tentar conectar-se com o servidor!");
             }
+
+            if(isLoggingOut) {
+                profileListAdapter.addItem("Saindo...");
+                Intent intent = new Intent(ProfileActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        sensorCounter.cancel();
+
+        super.onDestroy();
     }
 
     private static String convertInputStreamToString(InputStream inputStream) throws IOException {
@@ -270,7 +288,7 @@ public class ProfileActivity extends ActionBarActivity implements SensorEventLis
         Log.d("HTTP REQUEST RESULTADO", "");
         while((line = bufferedReader.readLine()) != null) {
             result = line;
-            Log.d("", result);
+            Log.d(TAG, result);
         }
         Log.d("HTTP REQUEST RESULT FIM", "");
 
@@ -296,7 +314,7 @@ public class ProfileActivity extends ActionBarActivity implements SensorEventLis
                 //String usuarios = jsonParser.getAllUsuariosAsJson().toString();
 
                 //Log.i("USUARIOS", usuarios);
-                Log.d("Dados sendo enviado: ", data);
+                Log.d(TAG, "Dados sendo enviado: " + data);
 
                 //params.add(new BasicNameValuePair("usuarios", usuarios));
                 if(isLoggingOut) {
@@ -325,7 +343,7 @@ public class ProfileActivity extends ActionBarActivity implements SensorEventLis
                 result = "Resultado Nulo";
 
         } catch (Exception e) {
-            Log.i("InputStream", e.getLocalizedMessage());
+            Log.i(TAG, e.getLocalizedMessage());
         }
 
         // 11. return result
