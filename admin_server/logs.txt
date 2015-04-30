@@ -1,0 +1,9 @@
+{
+    "valorAcelerometro": [
+        0.0095768067985773,
+        -0.095768064260483,
+        10.160991668701
+    ],
+    "valorLuminosidade": 210,
+    "idDispositivo": "114477"
+}

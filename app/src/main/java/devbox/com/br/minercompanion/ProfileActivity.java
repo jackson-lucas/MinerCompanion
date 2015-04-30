@@ -17,28 +17,33 @@
  */
 package devbox.com.br.minercompanion;
 
+<<<<<<< HEAD
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+=======
+>>>>>>> origin/victor
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+<<<<<<< HEAD
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+=======
+>>>>>>> origin/victor
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -65,8 +70,7 @@ import devbox.com.br.minercompanion.Utilities.Sensors;
 // Need develop and test connection with server
 public class ProfileActivity extends ActionBarActivity implements SensorEventListener {
 
-    //String url = "http://192.168.49.254/miner_companion/admin_server/hash.php";
-    String url = "http://32f35102.ngrok.com/miner_companion/admin_server/requests.php";
+	String url = "http://32f35102.ngrok.com/miner_companion/admin_server/requests.php";
 
     final static String TAG = "ProfileActivity";
 

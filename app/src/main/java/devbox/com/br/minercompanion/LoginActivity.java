@@ -51,8 +51,13 @@ import java.util.List;
 
 public class LoginActivity extends ActionBarActivity {
 
+<<<<<<< HEAD
     //String url = "http://192.168.49.254/miner_companion/admin_server/requests.php";
     String url = "http://32f35102.ngrok.com/miner_companion/admin_server/requests.php";
+=======
+    String url = "http://32f35102.ngrok.com/miner_companion/admin_server/requests.php";
+
+>>>>>>> origin/victor
     EditText editText;
     ProgressDialog progressDialog;
 
