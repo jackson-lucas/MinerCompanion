@@ -18,6 +18,8 @@
 package devbox.com.br.minercompanion;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -90,6 +92,7 @@ public class ProfileActivity extends ActionBarActivity implements SensorEventLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
         if (networkInfo.isConnected()) {
@@ -113,7 +116,7 @@ public class ProfileActivity extends ActionBarActivity implements SensorEventLis
 
             textView.setText("Matrícula: " + matricula);
 
-            sensors = new Sensors(matricula, routerName);
+            sensors = new Sensors(matricula, routerName.replace("\"",""));
         }
 
         /* Get a SensorManager instance */
@@ -363,4 +366,23 @@ public class ProfileActivity extends ActionBarActivity implements SensorEventLis
         // 11. return result
         return result;
     }
+
+    public class WifiReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            ConnectivityManager conMan = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo netInfo = conMan.getActiveNetworkInfo();
+            final WifiManager wifiManager = (WifiManager) getSystemService(WIFI_SERVICE);
+            final WifiInfo connectionInfo = wifiManager.getConnectionInfo();
+            if (netInfo != null && netInfo.getType() == ConnectivityManager.TYPE_WIFI) {
+                Log.d("WifiReceiver", "Have Wifi Connection");
+                routerName = connectionInfo.getSSID();
+                sensors.setRouterName(routerName.replace("\"",""));
+            }
+            else {
+                Log.d("WifiReceiver", "Don't have Wifi Connection");
+            }
+        }
+    };
 }
