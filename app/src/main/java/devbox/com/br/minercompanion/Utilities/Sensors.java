@@ -9,10 +9,15 @@ public class Sensors {
     public float[] gyroscope;
     public float[] orientation;
     public float luminosity;
-    String matricula;
+    String matricula, routerName;
 
-    public Sensors(String matricula) {
+    public Sensors(String matricula, String routerName) {
         this.matricula = matricula;
+        this.routerName = routerName;
+    }
+
+    public void setRouterName(String route) {
+        this.routerName = route;
     }
 
     public JSONObject getAsJson() {
@@ -20,6 +25,8 @@ public class Sensors {
 
         try {
             jsonObject.put("idDispositivo", matricula);
+
+            jsonObject.put("roteador", routerName);
 
             jsonObject.put("valorLuminosidade", luminosity);
 

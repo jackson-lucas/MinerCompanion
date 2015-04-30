@@ -51,7 +51,8 @@ import java.util.List;
 
 public class LoginActivity extends ActionBarActivity {
 
-    String url = "http://192.168.49.254/miner_companion/admin_server/requests.php";
+    //String url = "http://192.168.49.254/miner_companion/admin_server/requests.php";
+    String url = "http://32f35102.ngrok.com/miner_companion/admin_server/requests.php";
     EditText editText;
     ProgressDialog progressDialog;
 
@@ -126,12 +127,14 @@ public class LoginActivity extends ActionBarActivity {
 
             progressDialog.dismiss();
 
-            if(result.equals("OK")) {
+            if(result.contains("OK")) {
                 //Toast.makeText(getBaseContext(), "Dados enviados com sucesso!", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(LoginActivity.this, ProfileActivity.class);
                 intent.putExtra("MATRICULA", editText.getText().toString());
                 startActivity(intent);
                 finish();
+
+
             } else {
                 Toast.makeText(getBaseContext(), "Erro ao tentar conectar-se com o servidor!", Toast.LENGTH_SHORT).show();
             }
