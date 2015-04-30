@@ -2,15 +2,14 @@
 
 include 'test/ConnectionTeste.php';
 
+session_start();
+
 //Inicializa log container
 $log_container = array();
 
-//Fica processando logs em busca de alertas.
+$_SESSION["log_container"] = $log_container;
 
-function criar_log_buffer($log_container) {
-	$log_buffer = new LogBuffer();
-	array_push($log_container, $log_buffer);
-}
+//Fica processando logs em busca de alertas.
 
 /* ARMAZENAMENTO DOS LOGS EM ARQUIVO
 	$array_data = $_POST["data"];
