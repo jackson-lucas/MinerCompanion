@@ -1,17 +1,6 @@
-<?php 
+<?php
 
-session_start();
-
-//Se o log_container já tiver sido inicializado, vamos inserir os novos buffers nele.
-if(isset($_SESSION["log_container"])) {
-	$log_container = $_SESSION["log_container"];
-}
-
-else {
-	//Inicializa log container
-	$log_container = array();
-	$_SESSION["log_container"] = $log_container;
-}
+include 'controllers/AlertaController.php';
 
 //Recebe dados vindos dos dispositivos e trata pra ver se encaixa nas seguintes opções:
 //1 - Usuário está fazendo login
@@ -22,25 +11,32 @@ else {
 if ((isset($_POST)) && !empty($_POST)) {
 
 	if(isset($_POST["login"])) {
-		//Cria estrutura de armazenamento "log_buffer" para logs que virão daquele dispositivo.
-		//$id = $_POST["idDispositivo"];
-
-		//$log_buffer = StorageController::criar_log_buffer($log_container, $id);
 		echo "OK";
 	}
 
 	else if(isset($_POST["log"])) {
 		$log = $_POST["log"];
 
-		//Armazena logs
-		//$log_container[$log->id] = var_dump($log);
+		//Armazena logs: salva no arquivo logs.txt
 		echo "OK";
+
+		//ARMAZENAMENTO DOS LOGS EM ARQUIVO
+		$data = json_decode(utf8_decode($log));
+		// file_put_contents("logs.txt", json_encode($data, JSON_PRETTY_PRINT), FILE_APPEND);
+		// file_put_contents("logs.txt", ",", FILE_APPEND);
 		
+		$alerta = new AlertaController();
+
+		$alerta->verifica_log($data);
+	
+		echo "OK";
+
 		//Faz tratamento dos possíveis alertas
 	}
 
 	else if(isset($_POST["logout"])) {
 		//Para de verificar logs para aquele dispositivo
+		echo "OK";
 	}
 
 

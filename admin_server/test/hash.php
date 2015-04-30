@@ -1,25 +1,32 @@
 <?php 
 
-// //container
-// $container = array();
+function verifica_acelerometro($dim) {
+	$result = 0;
+	foreach ($string->valorAcelerometro as $accel => $value) {
+	$result = $result + $value;
+}
 
-// //buffer
-// $buffer = array();
+if((int) $result == 0) echo "está parado";
+else echo "está em mov.";
+	}
 
-// //inicializa buffer
-// $buffer[] = "oi";
-// $buffer[] = "oi3";
-// $buffer[] = "oi2";
+function verifica_log($log) {
+		$result = array_map("verifica_acelerometro", $log->valorAcelerometro);
+		
+		var_dump($result);
+	}
 
+$log = file_get_contents("../logs.txt");
+$string = json_decode(utf8_decode($log));
 
-// array_push($container, $buffer);
+var_dump($string);
 
-// var_dump($container);
+$result = 0;
+foreach ($string->valorAcelerometro as $accel => $value) {
+	$result = $result + $value;
+}
 
-
-// if(is_null($rrrr)) echo "$$$$$$$$$$";
-session_start();
-
-var_dump($_SESSION);
+if((int) $result == 0) echo "está parado";
+else echo "está em mov.";
 
  ?>

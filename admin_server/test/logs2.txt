@@ -1,8 +1,0 @@
-[
-	{
-		"id_dispositivo" : "CCCC1234",
-		"valorLuminosidade" : 10,
-		"valorAcelerometro": [1,2,3],
-		"valorLocalizacao" : 20
-	}
-]
