@@ -34,7 +34,7 @@ import java.util.List;
 
 public class LoginActivity extends ActionBarActivity {
 
-    String url = "http://32f35102.ngrok.com/miner_companion/admin_server/";
+    String url = "http://32f35102.ngrok.com/miner_companion/admin_server/requests.php";
     EditText editText;
     ProgressDialog progressDialog;
 
